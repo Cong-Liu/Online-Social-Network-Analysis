@@ -1,0 +1,56 @@
+Grade: 45.00/50.00
+
+2 Deduction(s):
+
+--------------
+#1: 2.00 points
+Failing test: test_vectorize_2: 
+        @points=2
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a3/a3_test.py", line 58, in test_vectorize_2
+    0.20)
+AssertionError: inf != 0.2
+
+source:
+    def test_vectorize_2(self):
+         """
+         @points=2
+         """
+         movies = pd.DataFrame([[123, 'horror|horror|romance|romance|romance',
+                                 ['horror', 'horror', 'romance', 'romance', 'romance']],
+                                [456, 'romance', ['romance']]], columns=['movieId', 'genres', 'tokens'])
+         movies = add_titles(movies)
+         movies, vocab = featurize(movies)
+         row0 = movies['features'].tolist()[0]
+         self.assertEqual(round(max(list(row0.data)), 2),
+                             0.20)
+         self.assertEqual(round(min(row0.toarray()[0]), 1),
+                             0.0)
+--------------
+
+--------------
+#2: 3.00 points
+Failing test: test_vectorize_3: 
+        @points=3
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a3/a3_test.py", line 73, in test_vectorize_3
+    0.0)
+AssertionError: 3.2999999999999998 != 0.0
+
+source:
+    def test_vectorize_3(self):
+         """
+         @points=3
+         """
+         movies = pd.DataFrame([[123, 'horror|horror|romance|romance|romance',
+                                 ['horror', 'horror', 'romance', 'romance', 'romance']],
+                                [456, 'romance', ['romance']]], columns=['movieId', 'genres', 'tokens'])
+         movies = add_titles(movies)
+         movies, vocab = featurize(movies)
+         row1 = movies['features'].tolist()[1]
+         self.assertEqual(round(max(list(row1.toarray()[0])), 1),
+                          0.0)
+--------------
+

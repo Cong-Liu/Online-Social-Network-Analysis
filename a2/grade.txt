@@ -1,0 +1,104 @@
+Grade: 39.00/50.00
+
+3 Deduction(s):
+
+--------------
+#1: 4.00 points
+Failing test: test_tokenize_1: 
+        @points=4
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a2/a2_test.py", line 20, in test_tokenize_1
+    ['hi', 'there', "isn't", 'this', 'fun'])
+AssertionError: Lists differ: ['!', '?'] != ['hi', 'there', "isn't", 'this', 'fun']
+
+First differing element 0:
+!
+hi
+
+Second list contains 3 additional elements.
+First extra element 2:
+isn't
+
+- ['!', '?']
++ ['hi', 'there', "isn't", 'this', 'fun']
+
+source:
+    def test_tokenize_1(self):
+         """
+         @points=4
+         """
+         self.assertListEqual(list(tokenize(" Hi there! Isn't this fun?", keep_internal_punct=False)),
+                              ['hi', 'there', 'isn', 't', 'this', 'fun'])
+         self.assertListEqual(list(tokenize("Hi there! Isn't this fun? ", keep_internal_punct=True)),
+                              ['hi', 'there', "isn't", 'this', 'fun'])
+--------------
+
+--------------
+#2: 4.00 points
+Failing test: test_tokenize_2: 
+        @points=4
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a2/a2_test.py", line 27, in test_tokenize_2
+    ['hi', 'there', 'super-duper'])
+AssertionError: Lists differ: ['-', '!'] != ['hi', 'there', 'super-duper']
+
+First differing element 0:
+-
+hi
+
+Second list contains 1 additional elements.
+First extra element 2:
+super-duper
+
+- ['-', '!']
++ ['hi', 'there', 'super-duper']
+
+source:
+    def test_tokenize_2(self):
+         """
+         @points=4
+         """
+         self.assertListEqual(list(tokenize("Hi there super-duper!", keep_internal_punct=True)),
+                              ['hi', 'there', 'super-duper'])
+--------------
+
+--------------
+#3: 3.00 points
+Failing test: test_classify_2: 
+        @points=3
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a2/a2_test.py", line 129, in test_classify_2
+    [2,3])
+  File "students/Cong-Liu/a2/a2.py", line 388, in eval_all_combinations
+    accuracy = cross_validation_accuracy(LogisticRegression(), X, labels, 5)
+  File "students/Cong-Liu/a2/a2.py", line 328, in cross_validation_accuracy
+    clf.fit(X[train_ind], labels[train_ind])
+  File "/Users/awculott/.local/lib/python3.5/site-packages/sklearn/linear_model/logistic.py", line 1142, in fit
+    order="C")
+  File "/Users/awculott/.local/lib/python3.5/site-packages/sklearn/utils/validation.py", line 510, in check_X_y
+    ensure_min_features, warn_on_dtype, estimator)
+  File "/Users/awculott/.local/lib/python3.5/site-packages/sklearn/utils/validation.py", line 415, in check_array
+    context))
+ValueError: Found array with 0 feature(s) (shape=(6, 0)) while a minimum of 1 is required.
+
+source:
+    def test_classify_2(self):
+         """
+         @points=3
+         """
+         docs = np.array(["Isn't this movie great?", "Horrible, horrible movie",
+                          "Isn't this movie great?", "Horrible, horrible movie",
+                          'i LOVE this great movie', 'i LOVE this wonderful movie',
+                          'i hate this bad movie', 'i hate this horrible movie'])
+         labels = np.array([1, 0, 1, 0, 1, 1, 0, 0])
+         feature_fns = [token_features]
+         feature_fns = [token_features, lexicon_features]
+         results = eval_all_combinations(docs, labels, [True, False],
+                                         feature_fns,
+                                         [2,3])
+         self.assertEqual(len(results), 12)
+--------------
+
